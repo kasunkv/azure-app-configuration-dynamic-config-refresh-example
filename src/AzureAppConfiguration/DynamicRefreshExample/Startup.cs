@@ -40,6 +40,9 @@ namespace DynamicRefreshExample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Use the request based middleware for Azure App Configuration
+            app.UseAzureAppConfiguration();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

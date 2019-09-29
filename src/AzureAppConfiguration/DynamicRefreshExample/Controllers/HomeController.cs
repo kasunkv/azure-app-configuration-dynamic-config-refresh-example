@@ -9,7 +9,7 @@ namespace DynamicRefreshExample.Controllers
     {
         private readonly AppSettings _appSettings;
 
-        public HomeController(IOptions<AppSettings> options)
+        public HomeController(IOptionsSnapshot<AppSettings> options)
         {
             _appSettings = options.Value;
         }
