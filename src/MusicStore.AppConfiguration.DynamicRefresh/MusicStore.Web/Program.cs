@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using Azure.Identity;
+using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 
 namespace MusicStore.Web
 {
@@ -31,6 +32,11 @@ namespace MusicStore.Web
                         {
                             options
                                 .Connect(endpoint, new ManagedIdentityCredential(clientId: userAssignedIdentityClientId))
+                                .ConfigureRefresh(refreshOpt =>
+                                {
+                                    refreshOpt.Register(key: "AppSettings:Version", refreshAll: true, label: LabelFilter.Null);
+                                    refreshOpt.SetCacheExpiration(TimeSpan.FromSeconds(10));
+                                })
                                 .UseFeatureFlags();
                         });
                     }
